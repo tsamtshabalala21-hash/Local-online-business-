@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LOB Mobile App</title>
+
+<!-- PWA META -->
+<meta name="theme-color" content="#0f172a">
+<link rel="manifest" href="manifest.json">
+
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f4f6f8;
+  -webkit-user-select:none;
+}
+
+/* TOP BAR */
+.topbar{
+  background:#0f172a;
+  color:white;
+  padding:15px;
+  text-align:center;
+  font-weight:bold;
+}
+
+/* SEARCH */
+.search{
+  padding:10px;
+  background:white;
+}
+
+.search input{
+  width:100%;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid #ddd;
+}
+
+/* PRODUCTS */
+.products{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:10px;
+  padding:10px;
+}
+
+.card{
+  background:white;
+  border-radius:10px;
+  padding:8px;
+  box-shadow:0 2px 6px rgba(0,0,0,0.1);
+  font-size:14px;
+}
+
+.card img{
+  width:100%;
+  height:100px;
+  object-fit:cover;
+  border-radius:8px;
+}
+
+.price{
+  color:green;
+  font-weight:bold;
+}
+
+/* BOTTOM NAV (MOBILE APP STYLE) */
+.navbar{
+  position:fixed;
+  bottom:0;
+  left:0;
+  width:100%;
+  display:flex;
+  background:#0f172a;
+  color:white;
+  justify-content:space-around;
+  padding:10px 0;
+}
+
+.navbar div{
+  text-align:center;
+  font-size:12px;
+}
+
+/* CART */
+.cart{
+  position:fixed;
+  top:70px;
+  right:10px;
+  background:white;
+  padding:10px;
+  border-radius:10px;
+  box-shadow:0 0 10px rgba(0,0,0,0.2);
+  width:140px;
+  font-size:12px;
+}
+
+button{
+  width:100%;
+  padding:6px;
+  background:#1e3a8a;
+  color:white;
+  border:none;
+  border-radius:6px;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="topbar">
+  LOB Marketplace 📱
+</div>
+
+<div class="search">
+  <input type="text" id="search" onkeyup="search()" placeholder="Search products...">
+</div>
+
+<div class="products" id="products">
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092">
+    <h4>Kota Combo</h4>
+    <p class="price">R35</p>
+    <button onclick="add('Kota Combo')">Add</button>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1511707171634-5f897ff02aa9">
+    <h4>Smartphone</h4>
+    <p class="price">R1500</p>
+    <button onclick="add('Smartphone')">Add</button>
+  </div>
+
+  <div class="card">
+    <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38">
+    <h4>T-Shirt</h4>
+    <p class="price">R120</p>
+    <button onclick="add('T-Shirt')">Add</button>
+  </div>
+
+</div>
+
+<div class="cart">
+  <b>Cart</b>
+  <ul id="cart"></ul>
+</div>
+
+<!-- BOTTOM NAV -->
+<div class="navbar">
+  <div>🏠 Home</div>
+  <div>🔍 Search</div>
+  <div>🛒 Cart</div>
+  <div>👤 Profile</div>
+</div>
+
+<script>
+
+let cart=[];
+
+function add(item){
+  cart.push(item);
+  update();
+}
+
+function update(){
+  let c=document.getElementById("cart");
+  c.innerHTML="";
+  cart.forEach(i=>{
+    let li=document.createElement("li");
+    li.textContent=i;
+    c.appendChild(li);
+  });
+}
+
+function search(){
+  let val=document.getElementById("search").value.toLowerCase();
+  let cards=document.getElementsByClassName("card");
+
+  for(let c of cards){
+    c.style.display=c.innerText.toLowerCase().includes(val)?"block":"none";
+  }
+}
+
+</script>
+
+</body>
+</html>
